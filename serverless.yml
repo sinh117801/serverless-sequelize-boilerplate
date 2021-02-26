@@ -1,0 +1,47 @@
+service: sample
+
+plugins:
+  - serverless-dotenv-plugin
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  lambdaHashingVersion: 20201221
+
+custom:
+  serverless-offline:
+    httpPort: 4000
+
+functions:
+  listBooks:
+    handler: handler.listBooks
+    events:
+    - http:
+        path: books
+        method: get
+  showBook:
+    handler: handler.showBook
+    events:
+    - http:
+        path: books/{id}
+        method: get
+  createBook:
+    handler: handler.createBook
+    events:
+    - http:
+        path: books
+        method: post
+  updateBook:
+    handler: handler.updateBook
+    events:
+    - http:
+        path: books/{id}
+        method: put
+  deleteBook:
+    handler: handler.deleteBook
+    events:
+    - http:
+        path: books/{id}
+        method: delete
+
